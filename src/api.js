@@ -19,11 +19,12 @@ export const getAccountsData = async (handles = []) => {
     `https://codeforces.com/api/user.info?handles=${query}`
   );
   const accounts = accountsRes.data.result
-  
+
   const submissions = await getSubmissions(handles);
   
-  return accounts.map((account) => ({
+  return accounts.map((account , index) => ({
       ...account,
+      id : index,
       submissionCount: submissions[account.handle].length,
       okCount: submissions[account.handle].reduce((curr, next) => {
         return curr + (next.verdict === "OK");

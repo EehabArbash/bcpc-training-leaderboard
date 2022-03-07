@@ -2,7 +2,7 @@ export const HANDLES = [
   "deaa2297",
   "abody.sunballi",
   "Albatoul_Alhussein",
-/*   "Amjad37",
+  "Amjad37",
   "baraa.aladeeb",
   "CHRISTINE0000",
   "h-aidar",
@@ -102,5 +102,5 @@ export const HANDLES = [
   "ghadergh",
   "Ahmadbit",
   "Elaf555",
-  "Rawanayehea", */
+  "Rawanayehea",
 ];
