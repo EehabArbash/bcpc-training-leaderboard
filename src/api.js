@@ -24,6 +24,7 @@ export const getAccountsData = async (handles = []) => {
   
   return accounts.map((account , index) => ({
       ...account,
+      ...submissions,
       id : index,
       submissionCount: submissions[account.handle].length,
       okCount: submissions[account.handle].reduce((curr, next) => {

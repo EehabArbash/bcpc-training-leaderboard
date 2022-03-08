@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { HANDLES } from "../handlers";
 import { getAccountsData } from "../api";
 import { Link } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import HandlersInput from "./HandlersInput";
 
 const columns = [
   {
@@ -21,18 +21,16 @@ const columns = [
         </Link>
       );
     },
-    headerAlign: 'center',
-    align : 'center',
-
+    headerAlign: "center",
+    align: "center",
   },
   {
     field: "rank",
     headerName: "Rank",
     sortable: true,
     width: 200,
-    headerAlign: 'center',
-    align : 'center',
-
+    headerAlign: "center",
+    align: "center",
   },
   {
     field: "rating",
@@ -40,16 +38,16 @@ const columns = [
     type: "number",
     sortable: true,
     width: 200,
-    headerAlign: 'center',
-    align : 'center',
+    headerAlign: "center",
+    align: "center",
   },
   {
     field: "registrationTimeSeconds",
     headerName: "Created At",
     sortable: true,
     width: 200,
-    headerAlign: 'center',
-    align : 'center',
+    headerAlign: "center",
+    align: "center",
     valueGetter: (params) =>
       `${new Date(
         params.row.registrationTimeSeconds * 1000
@@ -60,42 +58,49 @@ const columns = [
     headerName: "Submission",
     sortable: true,
     width: 200,
-    headerAlign: 'center',
-    align : 'center',
+    headerAlign: "center",
+    align: "center",
   },
   {
     field: "okCount",
     headerName: "Accepted",
     sortable: true,
     width: 200,
-    headerAlign: 'center',
-    align : 'center',
+    headerAlign: "center",
+    align: "center",
   },
 ];
 
 export default function StudentsTable() {
   const [loading, setLoading] = useState(false);
   const [accounts, setAccounts] = useState([]);
+  const [handlers, setHandlers] = useState([])
 
   useEffect(() => {
-    setLoading(true);
+    if(handlers.length > 0) {
+      setLoading(true);
+      getAccountsData(handlers).then((data) => {
+        setAccounts(data);
+        setLoading(false);
+      });
+      
+    }
 
-    getAccountsData(HANDLES).then((data) => {
-      setAccounts(data);
-      setLoading(false);
-    });
-  }, []);
+  }, [handlers]);
 
   return (
-    <div style={{ height: 635, width: "100%" }}>
-      <DataGrid
-        rows={accounts}
-        columns={columns}
-        pageSize={10}
-        rowsPerPageOptions={[10]}
-        disableSelectionOnClick
-        loading={loading}
-      />
-    </div>
+    <>
+      <HandlersInput loading={loading} setHandlers={setHandlers}></HandlersInput>
+      <div style={{ height: 635, width: "100%" }}>
+        <DataGrid
+          rows={accounts}
+          columns={columns}
+          pageSize={10}
+          rowsPerPageOptions={[10]}
+          disableSelectionOnClick
+          loading={loading}
+        />
+      </div>
+    </>
   );
 }
