@@ -3,4 +3,14 @@
 This is react app to show BCPC training participants codeforces stats
 
 
-***Note** Data loading is slow due to lack of users submission bulk endpoint in the codeforces API
+***Note*** Data loading is slow due to lack of users submission bulk endpoint in the codeforces API
+
+
+## Requirements
+- node
+- yarn
+
+### Run
+
+- ```yarn```
+- ```yarn start```
